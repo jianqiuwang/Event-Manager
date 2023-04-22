@@ -6,4 +6,7 @@ class Event < ApplicationRecord
   # An Event has many Users through UserEvents.
   has_many :user_events, dependent: :destroy
   has_many :users, through: :user_events
+
+  validates :latitude, presence: true
+  validates :longitude, presence: true
 end
