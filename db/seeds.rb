@@ -15,9 +15,35 @@ interest2 = Interest.create(name: "Music")
 interest3 = Interest.create(name: "Technology")
 
 # Events
-event1 = Event.create(name: "Football Match", description: "A friendly football match.", location: "Stadium A", start_time: DateTime.now + 1.day, end_time: DateTime.now + 1.day + 2.hours)
-event2 = Event.create(name: "Concert", description: "Live music concert.", location: "Music Hall", start_time: DateTime.now + 2.days, end_time: DateTime.now + 2.days + 3.hours)
-event3 = Event.create(name: "Tech Conference", description: "Conference about latest tech trends.", location: "Convention Center", start_time: DateTime.now + 3.days, end_time: DateTime.now + 3.days + 8.hours)
+# Events
+event1 = Event.create(
+  name: "Football Match",
+  description: "A friendly football match.",
+  location: "Stadium A",
+  start_time: DateTime.now + 1.day,
+  end_time: DateTime.now + 1.day + 2.hours,
+  latitude: 40.7128,
+  longitude: -74.0060
+)
+event2 = Event.create(
+  name: "Concert",
+  description: "Live music concert.",
+  location: "Music Hall",
+  start_time: DateTime.now + 2.days,
+  end_time: DateTime.now + 2.days + 3.hours,
+  latitude: 34.0522,
+  longitude: -118.2437
+)
+event3 = Event.create(
+  name: "Tech Conference",
+  description: "Conference about latest tech trends.",
+  location: "Convention Center",
+  start_time: DateTime.now + 3.days,
+  end_time: DateTime.now + 3.days + 8.hours,
+  latitude: 37.7749,
+  longitude: -122.4194
+)
+
 
 # UserEvents
 UserEvent.create(user_id: user1.id, event_id: event1.id)
