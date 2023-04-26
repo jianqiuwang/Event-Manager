@@ -1,5 +1,6 @@
 import React from "react";
 import { GoogleMap, LoadScript, Marker, InfoWindow, DirectionsRenderer, Autocomplete } from "@react-google-maps/api";
+import './Map.css';
 
 const containerStyle = {
   width: "100%",
@@ -54,7 +55,7 @@ const Map = ({ events, initialLatitude, initialLongitude }) => {
   };
 
   return (
-    <div>
+    <div className="map-container">
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}  libraries={["places"]}>
       <Autocomplete
         onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
