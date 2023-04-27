@@ -1,10 +1,9 @@
 // Navigation.js
 import React from "react";
 import { Link } from "react-router-dom";
-import './Navigation.css';
+import './Navbar.css';
 
-
-const Navigation = () => {
+const Navbar = () => {
   return (
     <nav>
       <ul>
@@ -17,9 +16,12 @@ const Navigation = () => {
         <li>
           <Link to="/signup">Signup</Link>
         </li>
+        <li>
+          <Link to="/events">Events</Link>
+        </li>
       </ul>
     </nav>
   );
 };
 
-export default Navigation;
+export default Navbar;

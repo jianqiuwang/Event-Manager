@@ -1,0 +1,31 @@
+.event-update-form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+  }
+  
+  .input-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .event-update-form input,
+  .event-update-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .event-update-form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .event-update-form button:hover {
+    background-color: #0056b3;
+  }
+  

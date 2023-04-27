@@ -3,7 +3,8 @@ import "../App.css";
 import Map from "./Map";
 import Login from "./Login"; 
 import Signup from "./Signup";
-import Navigation from "./Navigation";
+import Navbar from "./Navbar";
+import Events from './Events';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -28,11 +29,12 @@ function App() {
 
   return (
     <Router>
-      <Navigation />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Map events={events} initialLatitude={40.73061} initialLongitude={-73.935242} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/events" element={<Events />} />
       </Routes>
     </Router>
   );
