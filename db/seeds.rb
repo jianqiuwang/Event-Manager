@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 puts "🌱 Seeding data..."
 # Users
-user1 = User.create(username: "Alice", email: "alice@example.com", password_digest: "password1")
-user2 = User.create(username: "Bob", email: "bob@example.com", password_digest: "password2")
+user1 = User.create(username: "Alice", password_digest: "password1")
+user2 = User.create(username: "Bob", password_digest: "password2")
 
 # Interests
 interest1 = Interest.create(name: "Sports")

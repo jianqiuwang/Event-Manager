@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 import Map from "./Map";
 import Login from "./Login"; 
+import Logout from './Logout';
 import Signup from "./Signup";
 import Navbar from "./Navbar";
 import Events from './Events';
@@ -35,6 +36,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </Router>
   );

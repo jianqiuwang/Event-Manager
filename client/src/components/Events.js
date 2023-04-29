@@ -64,6 +64,7 @@ function Events() {
     };
     fetch("http://localhost:3000/events", {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
@@ -81,6 +82,7 @@ function Events() {
   const handleUpdateEvent = (updatedEvent) => {
     fetch(`http://localhost:3000/events/${updatedEvent.id}`, {
       method: "PATCH",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
@@ -103,6 +105,7 @@ function Events() {
   function handleDeleteEvent(id) {
     fetch(`http://localhost:3000/events/${id}`, {
       method: "DELETE",
+      credentials: 'include',
     })
       .then(() => {
         const updatedEvents = events.filter((event) => event.id !== id);

@@ -4,7 +4,7 @@ import './Signup.css';
 
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -14,19 +14,38 @@ const Signup = () => {
       alert("Passwords do not match");
       return;
     }
-    // Perform API call for registration
-    console.log("Email:", email, "Password:", password);
-  };
+  
+    fetch('http://localhost:3000/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({username, password}),
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Signup failed');
+      }
+    })
+    .then(data => {
+      console.log('Signup successful', data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  };  
 
   return (
     <div className="signup">
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
-        <label>Email:</label>
+        <label>Username:</label>
         <input
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          type="username"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
           required
         />
         <label>Password:</label>

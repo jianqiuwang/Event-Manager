@@ -1,26 +1,49 @@
-// Login.js
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  function handleSubmit(event) {
     event.preventDefault();
-    // Perform API call for authentication
-    console.log("Email:", email, "Password:", password);
-  };
+
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({username, password}),
+      credentials: 'include',  // send cookies
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Login failed');
+      }
+    })
+    .then(data => {
+      // login successful
+      navigate('/');  // redirect to homepage
+    })
+    .catch(error => {
+      // handle error
+      console.error(error);
+    });
+  }
 
   return (
     <div className="login">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <label>Email:</label>
+        <label>Username:</label>
         <input
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          type="text"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
           required
         />
         <label>Password:</label>
