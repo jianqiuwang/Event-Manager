@@ -1,4 +1,3 @@
-// Navigation.js
 import React from "react";
 import { Link } from "react-router-dom";
 import './Navbar.css';
@@ -18,6 +17,9 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="/events">Events</Link>
+        </li>
+        <li>
+          <Link to="/attending">My Joined Events</Link>
         </li>
         <li>
           <Link to="/logout">Logout</Link>

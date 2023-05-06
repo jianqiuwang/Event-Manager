@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_28_040008) do
+ActiveRecord::Schema.define(version: 2023_05_05_183125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,15 +25,20 @@ ActiveRecord::Schema.define(version: 2023_04_28_040008) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
-    t.integer "interest_id"
     t.string "image_url"
-    t.index ["interest_id"], name: "index_events_on_interest_id"
+    t.integer "user_id"
   end
 
-  create_table "interests", force: :cascade do |t|
-    t.string "name"
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.text "content"
+    t.integer "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "comment"
+    t.index ["event_id"], name: "index_reviews_on_event_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "user_events", force: :cascade do |t|
@@ -52,6 +57,8 @@ ActiveRecord::Schema.define(version: 2023_04_28_040008) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "reviews", "events"
+  add_foreign_key "reviews", "users"
   add_foreign_key "user_events", "events"
   add_foreign_key "user_events", "users"
 end

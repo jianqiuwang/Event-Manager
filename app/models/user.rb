@@ -5,5 +5,6 @@ class User < ApplicationRecord
 #   A User has many Events through UserEvents.
   has_many :user_events, dependent: :destroy
   has_many :events, through: :user_events
+  has_many :reviews, dependent: :destroy
 end
 

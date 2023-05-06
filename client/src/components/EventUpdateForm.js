@@ -5,20 +5,33 @@ const EventUpdateForm = ({ event, onUpdate }) => {
   const [formData, setFormData] = useState({
     id: event.id,
     name: event.name,
-    date: event.date,
+    start_time: event.start_time,
+    end_time: event.end_time,
     location: event.location,
-    description: event.description
+    description: event.description,
+    image: event.image,
   });
 
   useEffect(() => {
-    setFormData({
-      id: event.id,
-      name: event.name,
-      date: event.date,
-      location: event.location,
-      description: event.description
-    });
+    let isMounted = true;
+    
+    if (isMounted) {
+      setFormData({
+        id: event.id,
+        name: event.name,
+        start_time: event.start_time,
+        end_time: event.end_time,
+        location: event.location,
+        description: event.description,
+        image: event.image,
+      });
+    }
+  
+    return () => {
+      isMounted = false;
+    };
   }, [event]);
+  
 
   const handleInputChange = (e) => {
     setFormData({
@@ -54,11 +67,13 @@ const EventUpdateForm = ({ event, onUpdate }) => {
         <label htmlFor="description">Description:</label>
         <textarea id="description" name="description" value={formData.description} onChange={handleInputChange} />
       </div>
+      <div className="input-field">
+        <label htmlFor="image">Image:</label>
+        <input type="text" id="image" name="image" value={formData.image} onChange={handleInputChange} />
+      </div>
       <button type="submit">Update Event</button>
     </form>
   );
-  
-
 };
 
 export default EventUpdateForm;

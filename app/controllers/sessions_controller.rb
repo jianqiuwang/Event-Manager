@@ -13,4 +13,5 @@ class SessionsController < ApplicationController
     session.delete(:user_id)
     render json: { message: "Logged out successfully" }, status: :ok
   end
+  
 end

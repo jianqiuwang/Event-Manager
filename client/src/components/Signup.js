@@ -1,5 +1,6 @@
 // Signup.js
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import UserContext from '../context/user';
 import './Signup.css';
 
 
@@ -7,6 +8,8 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { setUser } = useContext(UserContext);
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,6 +34,7 @@ const Signup = () => {
     })
     .then(data => {
       console.log('Signup successful', data);
+      setUser(data); 
     })
     .catch(error => {
       console.error(error);

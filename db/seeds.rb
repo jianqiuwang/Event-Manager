@@ -7,13 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 puts "🌱 Seeding data..."
 # Users
-user1 = User.create(username: "Alice", password_digest: "password1")
-user2 = User.create(username: "Bob", password_digest: "password2")
-
-# Interests
-interest1 = Interest.create(name: "Sports")
-interest2 = Interest.create(name: "Music")
-interest3 = Interest.create(name: "Technology")
+user1 = User.create(username: "Alice", password: "password1")
+user2 = User.create(username: "Bob", password: "password2")
+user3 = User.create(username: "Charlie", password: "password3")
+user4 = User.create(username: "Diana", password: "password4")
 
 # Events
 event1=Event.create!(
@@ -25,7 +22,7 @@ event1=Event.create!(
   latitude: 33.6823,
   longitude: -116.2382,
   image_url: "https://www.concertaddicts.com/wp-content/uploads/2017/05/unnamed.jpg",
-  interest: interest1
+  user_id: user1.id
 )
 
 event2=Event.create!(
@@ -37,7 +34,7 @@ event2=Event.create!(
   latitude: 42.3601,
   longitude: -71.0589,
   image_url: "https://media1.popsugar-assets.com/files/thumbor/vCpKxfRurPpj8CvRq_CIr_ZJir8/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2023/04/17/789/n/1922729/tmp_X5Uyl0_4b64b5798d0bb66a_GettyImages-1482869799.jpg",
-  interest: interest2
+  user_id: user2.id
 )
 
 event3=Event.create!(
@@ -49,15 +46,43 @@ event3=Event.create!(
   latitude: 49.2827,
   longitude: -123.1207,
   image_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeD-oXVDafdsQQwB08asGOdAD_CaYAzxB0UQ&usqp=CAU",
-  interest: interest3
+  user_id: user3.id
 )
 
+event4 = Event.create!(
+  name: "Lollapalooza",
+  description: "An annual 4-day music festival based in Chicago, Illinois at Grant Park.",
+  location: "Grant Park, Chicago, Illinois",
+  start_time: DateTime.parse("2023-07-28"),
+  end_time: DateTime.parse("2023-07-31"),
+  latitude: 41.8722,
+  longitude: -87.6188,
+  image_url: "https://lollaindia.com/assets/images/legacy-banner11.png",
+  user_id: user4.id
+)
 
+event5 = Event.create!(
+  name: "Comic-Con International",
+  description: "A multi-genre entertainment and comic book convention held annually in San Diego, California.",
+  location: "San Diego Convention Center, San Diego, California",
+  start_time: DateTime.parse("2023-07-20"),
+  end_time: DateTime.parse("2023-07-23"),
+  latitude: 32.7065,
+  longitude: -117.1619,
+  image_url: "https://lajolla.com/wp-content/uploads/2018/07/cc-1.jpg",
+  user_id: user1.id
+)
 
 # UserEvents
-UserEvent.create(user_id: user1.id, event_id: event1.id)
-UserEvent.create(user_id: user1.id, event_id: event2.id)
-UserEvent.create(user_id: user2.id, event_id: event1.id)
-UserEvent.create(user_id: user2.id, event_id: event3.id)
+user_event1 = UserEvent.create(user_id: user1.id, event_id: event1.id)
+user_event2 = UserEvent.create(user_id: user1.id, event_id: event2.id)
+user_event3 = UserEvent.create(user_id: user2.id, event_id: event1.id)
+user_event4 = UserEvent.create(user_id: user2.id, event_id: event3.id)
+
+# Reviews
+review1 = Review.create(user_id: user1.id, event_id: event1.id, rating: 5, comment: "Amazing event!")
+review2 = Review.create(user_id: user1.id, event_id: event2.id, rating: 4, comment: "Great event, but it was a bit crowded.")
+
+
 
 puts "🌱 Done seeding!"

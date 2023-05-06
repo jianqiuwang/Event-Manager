@@ -1,12 +1,22 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
+import UserContext from '../context/user';
 import './Login.css';
 
 const Login = () => {
+  const { setUser } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.message) {
+      alert(location.state.message);
+    }
+  }, [location.state]);
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -27,6 +37,8 @@ const Login = () => {
     })
     .then(data => {
       // login successful
+      console.log('User data:', data);
+      setUser(data);
       navigate('/');  // redirect to homepage
     })
     .catch(error => {

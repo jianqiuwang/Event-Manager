@@ -1,10 +1,12 @@
 // Logout.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../context/user';
 
 const Logout = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     fetch('http://localhost:3000/logout', {
@@ -13,6 +15,7 @@ const Logout = () => {
     })
     .then(response => {
       if (response.ok) {
+        setUser(null);
         setMessage("You've successfully logged out!");
         navigate('/login', { state: { message: "You've successfully logged out!" } }); // pass message as state to login route
       } else {
@@ -23,7 +26,7 @@ const Logout = () => {
     
       console.error(error);
     });
-  }, []);
+  }, [navigate, setUser]);
 
   return (
     <div>
