@@ -9,7 +9,7 @@ const Logout = () => {
   const { setUser } = useContext(UserContext);
 
   useEffect(() => {
-    fetch('http://localhost:3000/logout', {
+    fetch('https://eventmanagement-o5zg.onrender.com/logout', {
       method: 'DELETE',
       credentials: 'include',  // send cookies
     })

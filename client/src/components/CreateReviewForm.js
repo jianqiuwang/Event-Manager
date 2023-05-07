@@ -15,7 +15,7 @@ const CreateReviewForm = ({ eventId, onReviewAdded, onCancel }) => {
       },
     };
 
-    fetch(`http://localhost:4000/events/${eventId}/reviews`, {
+    fetch(`https://eventmanagement-o5zg.onrender.com/events/${eventId}/reviews`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

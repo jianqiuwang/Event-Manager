@@ -26,7 +26,7 @@ const [addingReviewEventId, setAddingReviewEventId] = useState(null);
 
 
   useEffect(() => {
-    fetch("http://localhost:3000/events")
+    fetch("https://eventmanagement-o5zg.onrender.com/events")
       .then((response) => response.json())
       .then((eventData) => {
         setEvents(eventData);
@@ -103,7 +103,7 @@ const [addingReviewEventId, setAddingReviewEventId] = useState(null);
           latitude: coordinates.lat, // include the latitude
           longitude: coordinates.lng // include the longitude
         };
-        fetch("http://localhost:3000/events", {
+        fetch("https://eventmanagement-o5zg.onrender.com/events", {
           method: "POST",
           credentials: 'include',
           headers: {
@@ -124,7 +124,7 @@ const [addingReviewEventId, setAddingReviewEventId] = useState(null);
     const handleUpdateEvent = (updatedEvent) => {
         const { id, ...eventData } = updatedEvent;
       
-        fetch(`http://localhost:3000/events/${id}`, {
+        fetch(`https://eventmanagement-o5zg.onrender.com/events/${id}`, {
           method: "PATCH",
           credentials: 'include',
           headers: {
@@ -147,7 +147,7 @@ const [addingReviewEventId, setAddingReviewEventId] = useState(null);
       
       
   function handleDeleteEvent(id) {
-    fetch(`http://localhost:3000/events/${id}`, {
+    fetch(`https://eventmanagement-o5zg.onrender.com/events/${id}`, {
       method: "DELETE",
       credentials: 'include',
     })
@@ -360,9 +360,6 @@ function renderReview(event, review) {
     </div>
   </div>
 );
-
-                        
-  
 
 }
 export default Events;

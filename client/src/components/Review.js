@@ -7,7 +7,7 @@ function Review({ review, onReviewDelete, onReviewUpdate }) {
   const user = useContext(UserContext);
 
   const handleDelete = () => {
-    fetch(`/reviews/${review.id}`, {
+    fetch(`https://eventmanagement-o5zg.onrender.com/reviews/${review.id}`, {
       method: 'DELETE',
     })
       .then((res) => {

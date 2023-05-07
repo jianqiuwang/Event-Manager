@@ -20,7 +20,7 @@ const Login = () => {
   function handleSubmit(event) {
     event.preventDefault();
 
-    fetch('http://localhost:3000/login', {
+    fetch('https://eventmanagement-o5zg.onrender.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

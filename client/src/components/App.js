@@ -18,7 +18,7 @@ function App() {
   const mountedRef = useRef(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/events",{
+    fetch("https://eventmanagement-o5zg.onrender.com/events",{
       credentials: 'include', 
   })
       .then((response) => {
@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   const handleAttendance = (eventId) => {
-    fetch('http://localhost:3000/user_events', {
+    fetch('https://eventmanagement-o5zg.onrender.com/user_events', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ event_id: eventId }),
@@ -63,7 +63,7 @@ function App() {
 
   useEffect(() => {
     // Fetch the current user's information
-    fetch("/me")
+    fetch("https://eventmanagement-o5zg.onrender.com/me")
       .then((response) => {
         if (response.ok) {
           return response.json();
