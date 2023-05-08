@@ -6,7 +6,7 @@ import UpdateReviewForm from './UpdateReviewForm';
 
 import './Events.css';
 
-function Events({ events, onAttendance }) {
+function Events({ onAttendance }) {
   const { user } = useContext(UserContext);
   const [events, setEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
