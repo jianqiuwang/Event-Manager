@@ -15,7 +15,6 @@ function App() {
   const [attendingEvents, setAttendingEvents] = useState([]);
   const [user, setUser] = useState(null); // Add a state variable for the current user
 
-
   const handleAttendance = (eventId) => {
     fetch('https://eventmanagement-o5zg.onrender.com/user_events', {
       method: 'POST',
@@ -25,11 +24,22 @@ function App() {
     })
       .then((response) => response.json())
       .then((newAttendance) => {
-        // Find the event in the events array and add it to the attendingEvents array
-        const event = events.find(event => event.id === eventId);
-        if (event) {
-          setAttendingEvents([...attendingEvents, event]);
-        }
+        // Fetch the specific event data
+        fetch(`https://eventmanagement-o5zg.onrender.com/events/${eventId}`, {
+          credentials: 'include',
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Error fetching event");
+          })
+          .then((event) => {
+            setAttendingEvents([...attendingEvents, event]);
+          })
+          .catch((error) => {
+            console.error("Error fetching event:", error);
+          });
       })
       .catch((error) => console.error('Error:', error));
   };
@@ -43,7 +53,7 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Map events={events} initialLatitude={40.73061} initialLongitude={-73.935242} />} />
+          <Route path="/" element={<Map initialLatitude={40.73061} initialLongitude={-73.935242} />} />
           <Route path="/login" element={<Login setUser={setUser}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/events" element={<Events onAttendance={handleAttendance}/>} />
