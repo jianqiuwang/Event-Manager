@@ -6,5 +6,5 @@ class Event < ApplicationRecord
   validates :latitude, presence: true
   validates :longitude, presence: true
 
-  validates :title, uniqueness: { scope: [:date, :time], message: "event already exists with the same date and time" }
+  validates :name, uniqueness: { scope: :start_time, message: "An event with the same name and start time already exists" }
 end
