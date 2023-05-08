@@ -12,28 +12,9 @@ import UserContext from '../context/user';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
-  const [events, setEvents] = useState([]);
   const [attendingEvents, setAttendingEvents] = useState([]);
   const [user, setUser] = useState(null); // Add a state variable for the current user
 
-  useEffect(() => {
-    fetch("https://eventmanagement-o5zg.onrender.com/events",{
-      credentials: 'include', 
-  })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Error fetching events");
-      })
-      .then((data) => {
-        console.log("Fetched events data:", data);
-        setEvents(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching events:", error);
-      });
-  }, []);
 
   const handleAttendance = (eventId) => {
     fetch('https://eventmanagement-o5zg.onrender.com/user_events', {
@@ -65,7 +46,7 @@ function App() {
           <Route path="/" element={<Map events={events} initialLatitude={40.73061} initialLongitude={-73.935242} />} />
           <Route path="/login" element={<Login setUser={setUser}/>} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/events" element={<Events events={events} onAttendance={handleAttendance}/>} />
+          <Route path="/events" element={<Events onAttendance={handleAttendance}/>} />
           <Route path="/attending" element={<AttendingEvents events={attendingEvents} user={user}/>} />
           <Route path="/logout" element={<Logout setUser={setUser}/>} />
         </Routes>
