@@ -6,9 +6,9 @@ import UpdateReviewForm from './UpdateReviewForm';
 
 import './Events.css';
 
-function Events({ onAttendance }) {
+function Events({ initialEvents, onAttendance }) {
   const { user } = useContext(UserContext);
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(initialEvents);
   const [searchTerm, setSearchTerm] = useState('');
   const [editingEventId, setEditingEventId] = useState(null);
   const [newEventName, setNewEventName] = useState('');
