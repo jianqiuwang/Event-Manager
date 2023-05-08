@@ -6,7 +6,7 @@ import UpdateReviewForm from './UpdateReviewForm';
 
 import './Events.css';
 
-function Events({ eventData, onAttendance }) {
+function Events({ events, onAttendance }) {
   const { user } = useContext(UserContext);
   const [events, setEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,17 +24,6 @@ function Events({ eventData, onAttendance }) {
 const [editingReviewId, setEditingReviewId] = useState(null);
 const [addingReviewEventId, setAddingReviewEventId] = useState(null);
 
-
-  useEffect(() => {
-    fetch("https://eventmanagement-o5zg.onrender.com/events")
-      .then((response) => response.json())
-      .then((eventData) => {
-        setEvents(eventData);
-      })
-      .catch((error) => {
-        console.error('Error fetching events:', error);
-      });
-  }, []);
 
   function handleSearchChange(e) {
     setSearchTerm(e.target.value);

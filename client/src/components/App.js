@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import Map from "./Map";
 import Login from "./Login";
@@ -15,7 +15,6 @@ function App() {
   const [events, setEvents] = useState([]);
   const [attendingEvents, setAttendingEvents] = useState([]);
   const [user, setUser] = useState(null); // Add a state variable for the current user
-  const mountedRef = useRef(true);
 
   useEffect(() => {
     fetch("https://eventmanagement-o5zg.onrender.com/events",{
@@ -34,9 +33,6 @@ function App() {
       .catch((error) => {
         console.error("Error fetching events:", error);
       });
-      return () => {
-        mountedRef.current = false;
-      };
   }, []);
 
   const handleAttendance = (eventId) => {
@@ -61,25 +57,6 @@ function App() {
     console.log("Attending Events:", attendingEvents);
   }, [attendingEvents]);
 
-  useEffect(() => {
-    // Fetch the current user's information
-    fetch("https://eventmanagement-o5zg.onrender.com/me")
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Not logged in");
-      })
-      .then((user) => {
-        // Set the user state with the fetched user information
-        setUser(user);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-  
-
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Router>
@@ -88,7 +65,7 @@ function App() {
           <Route path="/" element={<Map events={events} initialLatitude={40.73061} initialLongitude={-73.935242} />} />
           <Route path="/login" element={<Login setUser={setUser}/>} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/events" element={<Events onAttendance={handleAttendance}/>} />
+          <Route path="/events" element={<Events events={events} onAttendance={handleAttendance}/>} />
           <Route path="/attending" element={<AttendingEvents events={attendingEvents} user={user}/>} />
           <Route path="/logout" element={<Logout setUser={setUser}/>} />
         </Routes>
