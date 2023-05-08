@@ -6,9 +6,9 @@ import UpdateReviewForm from './UpdateReviewForm';
 
 import './Events.css';
 
-function Events({ onAttendance }) {
+function Events({ events, onAttendance, onEventsChange }) {
   const { user } = useContext(UserContext);
-  const [events, setEvents] = useState([]);
+//   const [events, setEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [editingEventId, setEditingEventId] = useState(null);
   const [newEventName, setNewEventName] = useState('');
@@ -25,16 +25,16 @@ const [editingReviewId, setEditingReviewId] = useState(null);
 const [addingReviewEventId, setAddingReviewEventId] = useState(null);
 
 
-  useEffect(() => {
-    fetch("https://eventmanagement-o5zg.onrender.com/events")
-      .then((response) => response.json())
-      .then((eventData) => {
-        setEvents(eventData);
-      })
-      .catch((error) => {
-        console.error('Error fetching events:', error);
-      });
-  }, []);
+//   useEffect(() => {
+//     fetch("https://eventmanagement-o5zg.onrender.com/events")
+//       .then((response) => response.json())
+//       .then((eventData) => {
+//         setEvents(eventData);
+//       })
+//       .catch((error) => {
+//         console.error('Error fetching events:', error);
+//       });
+//   }, []);
 
   function handleSearchChange(e) {
     setSearchTerm(e.target.value);
@@ -113,7 +113,7 @@ const [addingReviewEventId, setAddingReviewEventId] = useState(null);
         })
           .then((response) => response.json())
           .then((newEvent) => {
-            setEvents([...events, newEvent]);
+            onEventsChange([...events, newEvent]);
           })
           .catch((error) => {
             console.error('Error creating new event:', error);
@@ -137,7 +137,7 @@ const [addingReviewEventId, setAddingReviewEventId] = useState(null);
             const updatedEvents = events.map((event) =>
               event.id === updatedEvent.id ? updatedEvent : event
             );
-            setEvents(updatedEvents);
+            onEventsChange(updatedEvents);
             setEditingEventId(null); // Hide the form after updating
           })
           .catch((error) => {
@@ -147,13 +147,13 @@ const [addingReviewEventId, setAddingReviewEventId] = useState(null);
       
       
   function handleDeleteEvent(id) {
-    fetch(`https://eventmanagement-o5zg.onrender.com/events/${id}`, {
+    fetch(`/events/${id}`, {
       method: "DELETE",
       credentials: 'include',
     })
       .then(() => {
         const updatedEvents = events.filter((event) => event.id !== id);
-        setEvents(updatedEvents);
+        onEventsChange(updatedEvents);
       })
       .catch((error) => {
         console.error('Error deleting event:', error);
@@ -161,7 +161,7 @@ const [addingReviewEventId, setAddingReviewEventId] = useState(null);
   }
 
   function handleAddReview(event, newReview) {
-    fetch('/reviews', {
+    fetch('https://eventmanagement-o5zg.onrender.com/reviews', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -179,14 +179,14 @@ const [addingReviewEventId, setAddingReviewEventId] = useState(null);
                 }
                 return e;
             });
-            setEvents(updatedEventsData);
+            onEventsChange(updatedEventsData);
             setAddingReviewEventId(null);
         });
 }
 
 
 function handleDelete(eventId, reviewId) {
-    fetch(`/reviews/${reviewId}`, {
+    fetch(`https://eventmanagement-o5zg.onrender.com/reviews/${reviewId}`, {
         method: 'DELETE',
     })
         .then((res) => {
@@ -200,7 +200,7 @@ function handleDelete(eventId, reviewId) {
                     }
                     return event;
                 });
-                setEvents(updatedEventsData);
+                onEventsChange(updatedEventsData);
             }
         });
 }
@@ -215,7 +215,7 @@ function updateEventReviews(event, updatedReview) {
       }
       return e;
     });
-    setEvents(updatedEventsData);
+    onEventsChange(updatedEventsData);
   }
   
 function renderReview(event, review) {
@@ -360,6 +360,9 @@ function renderReview(event, review) {
     </div>
   </div>
 );
+
+                        
+  
 
 }
 export default Events;

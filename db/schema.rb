@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(version: 2023_05_05_183125) do
     t.string "location"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "image_url"
     t.integer "user_id"
   end

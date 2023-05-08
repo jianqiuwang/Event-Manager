@@ -4,6 +4,7 @@ class EventsController < ApplicationController
 
   def index
     events = Event.all
+    puts "Events count: #{events.count}"
     render json: events, include: :reviews
   end
 
