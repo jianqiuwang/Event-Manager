@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/user';
 
-const Logout = () => {
+const Logout = ({setAttendingEvents}) => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
