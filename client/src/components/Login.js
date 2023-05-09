@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import UserContext from '../context/user';
 import './Login.css';
 
-const Login = () => {
+const Login = ({fetchAttendingEvents}) => {
   const { setUser } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -39,6 +39,8 @@ const Login = () => {
       // login successful
       console.log('User data:', data);
       setUser(data);
+      fetchAttendingEvents();
+
       navigate('/');  // redirect to homepage
     })
     .catch(error => {

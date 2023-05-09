@@ -53,9 +53,9 @@ function App() {
       .catch((error) => console.error('Error:', error));
   };
 
-  useEffect(() => {
+
+  const fetchAttendingEvents = () => {
     if (user) {
-      // Fetch attending events for current user
       fetch("https://eventmanagement-o5zg.onrender.com/user_events", {
         credentials: 'include',
       })
@@ -73,10 +73,19 @@ function App() {
           console.error("Error fetching attending events:", error);
         });
     } else {
-      // No user is logged in, so clear the attending events
       setAttendingEvents([]);
     }
+  };
+
+
+  useEffect(() => {
+    fetchAttendingEvents(); // Fetch attending events when App first mounts
+  }, []);
+
+  useEffect(() => {
+    fetchAttendingEvents(); // Fetch attending events when user changes
   }, [user]);
+
   
 
   useEffect(() => {
@@ -89,7 +98,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Map events={events} initialLatitude={40.73061} initialLongitude={-73.935242} />} />
-          <Route path="/login" element={<Login setUser={setUser}/>} />
+          <Route path="/login" element={<Login setUser={setUser} fetchAttendingEvents={fetchAttendingEvents}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/events" element={<Events events={events} onAttendance={handleAttendance} onEventsChange={setEvents}/>} />
           <Route path="/attending" element={<AttendingEvents events={attendingEvents} user={user}/>} />
