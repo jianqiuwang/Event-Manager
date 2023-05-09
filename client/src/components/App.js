@@ -54,6 +54,32 @@ function App() {
   };
 
   useEffect(() => {
+    if (user) {
+      // Fetch attending events for current user
+      fetch("https://eventmanagement-o5zg.onrender.com/user_events", {
+        credentials: 'include',
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Error fetching attending events");
+        })
+        .then((data) => {
+          console.log("Fetched attending events data:", data);
+          setAttendingEvents(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching attending events:", error);
+        });
+    } else {
+      // No user is logged in, so clear the attending events
+      setAttendingEvents([]);
+    }
+  }, [user]);
+  
+
+  useEffect(() => {
     console.log("Attending Events:", attendingEvents);
   }, [attendingEvents]);
 
