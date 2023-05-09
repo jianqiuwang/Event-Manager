@@ -16,6 +16,7 @@ const Logout = () => {
     .then(response => {
       if (response.ok) {
         setUser(null);
+        setAttendingEvents([])
         setMessage("You've successfully logged out!");
         navigate('/login', { state: { message: "You've successfully logged out!" } }); // pass message as state to login route
       } else {
@@ -26,7 +27,7 @@ const Logout = () => {
     
       console.error(error);
     });
-  }, [navigate, setUser]);
+  }, [navigate, setUser, setAttendingEvents]);
 
   return (
     <div>

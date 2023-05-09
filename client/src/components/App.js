@@ -67,7 +67,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/events" element={<Events events={events} onAttendance={handleAttendance} onEventsChange={setEvents}/>} />
           <Route path="/attending" element={<AttendingEvents events={attendingEvents} user={user}/>} />
-          <Route path="/logout" element={<Logout setUser={setUser}/>} />
+          <Route path="/logout" element={<Logout setUser={setUser} setAttendingEvents={setAttendingEvents}/>} />
+
         </Routes>
       </Router>
     </UserContext.Provider>
