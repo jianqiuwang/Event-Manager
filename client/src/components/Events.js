@@ -147,7 +147,7 @@ const [addingReviewEventId, setAddingReviewEventId] = useState(null);
       
       
   function handleDeleteEvent(id) {
-    fetch(`/events/${id}`, {
+    fetch(`https://eventmanagement-o5zg.onrender.com/events/${id}`, {
       method: "DELETE",
       credentials: 'include',
     })
