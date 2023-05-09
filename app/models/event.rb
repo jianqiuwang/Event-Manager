@@ -5,4 +5,5 @@ class Event < ApplicationRecord
   
   validates :latitude, presence: true
   validates :longitude, presence: true
+  validates :name, uniqueness: true
 end
