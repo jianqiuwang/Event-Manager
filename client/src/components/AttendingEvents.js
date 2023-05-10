@@ -1,16 +1,19 @@
-function AttendingEvents({ events, onUnattendance }) {
+// AttendingEvents.js
+import React from 'react';
+import './AttendingEvents.css'
+
+function AttendingEvents({ events }) {
   return (
     <div>
       <h1>Events I'm Attending</h1>
-      {events.map((userEvent) => (
-        <div key={userEvent.event.id}>
-          <h3>{userEvent.event.name}</h3>
-          <p>{userEvent.event.description}</p>
-          <p>{userEvent.event.location}</p>
-          <p>Start: {new Date(userEvent.event.start_time).toLocaleString()}</p>
-          <p>End: {new Date(userEvent.event.end_time).toLocaleString()}</p>
-          <img src={userEvent.event.image_url} alt={userEvent.event.name} style={{ width: '200px' }} />
-          <button onClick={() => onUnattendance(userEvent.id)}>Remove</button>
+      {events.map((event) => (
+        <div key={event.id}>
+          <h3>{event.name}</h3>
+          <p>{event.description}</p>
+          <p>{event.location}</p>
+          <p>Start: {new Date(event.start_time).toLocaleString()}</p>
+          <p>End: {new Date(event.end_time).toLocaleString()}</p>
+          <img src={event.image_url} alt={event.name} style={{ width: '200px' }} />
         </div>
       ))}
     </div>

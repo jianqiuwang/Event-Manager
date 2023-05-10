@@ -67,7 +67,6 @@ function App() {
         })
         .then((data) => {
           console.log("Fetched attending events data:", data);
-          // Store the full user_event objects, including user_event_id
           setAttendingEvents(data);
         })
         .catch((error) => {
@@ -77,24 +76,7 @@ function App() {
       setAttendingEvents([]);
     }
   };
-  
 
-  const handleUnattendance = (userEventId) => {
-    fetch(`https://eventmanagement-o5zg.onrender.com/user_events/${userEventId}`, {
-      method: 'DELETE',
-      credentials: 'include',
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Unattendance failed');
-        }
-        // Remove the user_event from the attendingEvents array
-        const updatedUserEvents = attendingEvents.filter(userEvent => userEvent.id !== userEventId);
-        setAttendingEvents(updatedUserEvents);
-      })
-      .catch((error) => console.error('Error:', error));
-  };
-  
 
   useEffect(() => {
     fetchAttendingEvents(); // Fetch attending events when App first mounts
@@ -119,7 +101,7 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} fetchAttendingEvents={fetchAttendingEvents}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/events" element={<Events events={events} onAttendance={handleAttendance} onEventsChange={setEvents}/>} />
-          <Route path="/attending" element={<AttendingEvents events={attendingEvents} user={user} onUnattendance={handleUnattendance}/>}/>
+          <Route path="/attending" element={<AttendingEvents events={attendingEvents} user={user}/>} />
           <Route path="/logout" element={<Logout setUser={setUser} setAttendingEvents={setAttendingEvents}/>} />
         </Routes>
       </Router>
