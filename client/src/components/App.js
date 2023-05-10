@@ -117,9 +117,8 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} fetchAttendingEvents={fetchAttendingEvents}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/events" element={<Events events={events} onAttendance={handleAttendance} onEventsChange={setEvents}/>} />
-          <Route path="/attending" element={<AttendingEvents events={attendingEvents} user={user}/>} onUnattendance={handleUnattendance}/>
+          <Route path="/attending" element={<AttendingEvents events={attendingEvents} user={user} onUnattendance={handleUnattendance}/>}/>
           <Route path="/logout" element={<Logout setUser={setUser} setAttendingEvents={setAttendingEvents}/>} />
-
         </Routes>
       </Router>
     </UserContext.Provider>
