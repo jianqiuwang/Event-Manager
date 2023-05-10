@@ -4,12 +4,11 @@ Rails.application.routes.draw do
     resources :reviews, only: [:index, :show, :create, :update, :destroy]
   end
   resources :reviews, only: [:index, :show, :create, :update, :destroy]
-  resources :user_events, only: [:create, :destroy]
+  resources :user_events, only: [:create, :destroy, :index]
 
   get "/me", to: "users#show"
   post '/signup', to: 'users#create'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/logged_in', to: 'sessions#is_logged_in?'
-  get '/user_events', to: 'user_events#index'
 end

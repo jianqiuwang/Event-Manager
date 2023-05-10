@@ -67,6 +67,7 @@ function App() {
         })
         .then((data) => {
           console.log("Fetched attending events data:", data);
+          // Store the full user_event objects, including user_event_id
           setAttendingEvents(data);
         })
         .catch((error) => {
@@ -76,6 +77,7 @@ function App() {
       setAttendingEvents([]);
     }
   };
+  
 
   const handleUnattendance = (userEventId) => {
     fetch(`https://eventmanagement-o5zg.onrender.com/user_events/${userEventId}`, {
@@ -86,12 +88,13 @@ function App() {
         if (!response.ok) {
           throw new Error('Unattendance failed');
         }
-        // Remove the event from the attendingEvents array
-        const updatedEvents = attendingEvents.filter(event => event.user_event_id !== userEventId);
-        setAttendingEvents(updatedEvents);
+        // Remove the user_event from the attendingEvents array
+        const updatedUserEvents = attendingEvents.filter(userEvent => userEvent.id !== userEventId);
+        setAttendingEvents(updatedUserEvents);
       })
       .catch((error) => console.error('Error:', error));
   };
+  
 
   useEffect(() => {
     fetchAttendingEvents(); // Fetch attending events when App first mounts
