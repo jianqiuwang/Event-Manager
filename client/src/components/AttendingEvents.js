@@ -14,7 +14,7 @@ function AttendingEvents({ events,onUnattendance }) {
           <p>Start: {new Date(event.start_time).toLocaleString()}</p>
           <p>End: {new Date(event.end_time).toLocaleString()}</p>
           <img src={event.image_url} alt={event.name} style={{ width: '200px' }} />
-          <button onClick={() => onUnattendance(event.id)}>Remove</button>
+          <button onClick={() => onUnattendance(event.user_event_id)}>Remove</button>
         </div>
       ))}
     </div>
