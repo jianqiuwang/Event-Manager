@@ -1,6 +1,11 @@
 class UserEventsController < ApplicationController
     before_action :authorized, only: [:create, :destroy]
 
+    def index
+        user_events = UserEvent.where(user_id: session[:user_id]).includes(:event)
+        render json: user_events.map(&:event), status: :ok
+    end
+
     def create
       user_event = UserEvent.new(user_event_params)
       user_event.user_id = session[:user_id]
