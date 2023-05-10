@@ -2,7 +2,7 @@
 import React from 'react';
 import './AttendingEvents.css'
 
-function AttendingEvents({ events }) {
+function AttendingEvents({ events,onUnattendance }) {
   return (
     <div>
       <h1>Events I'm Attending</h1>
@@ -14,6 +14,7 @@ function AttendingEvents({ events }) {
           <p>Start: {new Date(event.start_time).toLocaleString()}</p>
           <p>End: {new Date(event.end_time).toLocaleString()}</p>
           <img src={event.image_url} alt={event.name} style={{ width: '200px' }} />
+          <button onClick={() => onUnattendance(event.id)}>Remove</button>
         </div>
       ))}
     </div>

@@ -77,6 +77,22 @@ function App() {
     }
   };
 
+  const handleUnattendance = (eventId) => {
+    fetch(`https://eventmanagement-o5zg.onrender.com/user_events/${eventId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Unattendance failed');
+        }
+        // Remove the event from the attendingEvents array
+        const updatedEvents = attendingEvents.filter(event => event.id !== eventId);
+        setAttendingEvents(updatedEvents);
+      })
+      .catch((error) => console.error('Error:', error));
+  };
+
 
   useEffect(() => {
     fetchAttendingEvents(); // Fetch attending events when App first mounts
@@ -101,7 +117,7 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} fetchAttendingEvents={fetchAttendingEvents}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/events" element={<Events events={events} onAttendance={handleAttendance} onEventsChange={setEvents}/>} />
-          <Route path="/attending" element={<AttendingEvents events={attendingEvents} user={user}/>} />
+          <Route path="/attending" element={<AttendingEvents events={attendingEvents} user={user}/>} onUnattendance={handleUnattendance}/>
           <Route path="/logout" element={<Logout setUser={setUser} setAttendingEvents={setAttendingEvents}/>} />
 
         </Routes>
