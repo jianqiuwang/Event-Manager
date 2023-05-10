@@ -53,7 +53,6 @@ function App() {
       .catch((error) => console.error('Error:', error));
   };
 
-
   const fetchAttendingEvents = () => {
     if (user) {
       fetch("https://eventmanagement-o5zg.onrender.com/user_events", {
@@ -67,7 +66,7 @@ function App() {
         })
         .then((data) => {
           console.log("Fetched attending events data:", data);
-          setAttendingEvents(data);
+          setAttendingEvents(data);  // Save the entire user event record
         })
         .catch((error) => {
           console.error("Error fetching attending events:", error);
@@ -76,9 +75,18 @@ function App() {
       setAttendingEvents([]);
     }
   };
+  
 
-  const handleUnattendance = (userEventId) => {
-    fetch(`https://eventmanagement-o5zg.onrender.com/user_events/${userEventId}`, {
+  const handleUnattendance = (eventId) => {
+    // Find the UserEvent record for this event
+    const userEvent = attendingEvents.find(ue => ue.event.id === eventId);
+  
+    if (!userEvent) {
+      console.error(`No UserEvent found for event ID ${eventId}`);
+      return;
+    }
+  
+    fetch(`https://eventmanagement-o5zg.onrender.com/user_events/${userEvent.id}`, {
       method: 'DELETE',
       credentials: 'include',
     })
@@ -86,12 +94,13 @@ function App() {
         if (!response.ok) {
           throw new Error('Unattendance failed');
         }
-        // Remove the event from the attendingEvents array
-        const updatedEvents = attendingEvents.filter(event => event.user_event_id !== userEventId);
+        // Remove the UserEvent from the attendingEvents array
+        const updatedEvents = attendingEvents.filter(ue => ue.id !== userEvent.id);
         setAttendingEvents(updatedEvents);
       })
       .catch((error) => console.error('Error:', error));
   };
+  
 
   useEffect(() => {
     fetchAttendingEvents(); // Fetch attending events when App first mounts

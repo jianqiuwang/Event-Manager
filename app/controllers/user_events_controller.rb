@@ -3,8 +3,9 @@ class UserEventsController < ApplicationController
 
     def index
         user_events = UserEvent.where(user_id: session[:user_id]).includes(:event)
-        render json: user_events.map(&:event), status: :ok
-    end
+        render json: user_events.map { |ue| ue.as_json.merge({ event: ue.event }) }, status: :ok
+      end
+      
 
     def create
       user_event = UserEvent.new(user_event_params)
