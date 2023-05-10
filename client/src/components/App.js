@@ -77,8 +77,8 @@ function App() {
     }
   };
 
-  const handleUnattendance = (eventId) => {
-    fetch(`https://eventmanagement-o5zg.onrender.com/user_events/${eventId}`, {
+  const handleUnattendance = (userEventId) => {
+    fetch(`https://eventmanagement-o5zg.onrender.com/user_events/${userEventId}`, {
       method: 'DELETE',
       credentials: 'include',
     })
@@ -87,12 +87,11 @@ function App() {
           throw new Error('Unattendance failed');
         }
         // Remove the event from the attendingEvents array
-        const updatedEvents = attendingEvents.filter(event => event.id !== eventId);
+        const updatedEvents = attendingEvents.filter(event => event.user_event_id !== userEventId);
         setAttendingEvents(updatedEvents);
       })
       .catch((error) => console.error('Error:', error));
   };
-
 
   useEffect(() => {
     fetchAttendingEvents(); // Fetch attending events when App first mounts

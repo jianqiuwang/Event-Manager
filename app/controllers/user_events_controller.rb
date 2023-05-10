@@ -18,15 +18,15 @@ class UserEventsController < ApplicationController
     end
   
     def destroy
-      user_event = UserEvent.find_by(user_id: session[:user_id], event_id: params[:event_id])
-  
-      if user_event
-        user_event.destroy
-        render json: { message: 'User event association was successfully destroyed.' }, status: :ok
-      else
-        render json: { errors: "User event association not found or you're not authorized to delete it." }, status: :forbidden
+        user_event = UserEvent.find_by(id: params[:id])
+        if user_event && user_event.user_id == session[:user_id]
+          user_event.destroy
+          render json: { message: 'User event association was successfully destroyed.' }, status: :ok
+        else
+          render json: { errors: "User event association not found or you're not authorized to delete it." }, status: :forbidden
+        end
       end
-    end
+      
   
     private
     def user_event_params
